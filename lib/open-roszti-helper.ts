@@ -1,4 +1,3 @@
-"use server";
 import { sheets } from "@googleapis/sheets";
 import { JWT } from "google-auth-library";
 
