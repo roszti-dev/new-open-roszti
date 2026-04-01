@@ -1,6 +1,7 @@
-import { User } from "lucide-react";
+import { CircleOff, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { getData, getNameByCode } from "@/lib/open-roszti-helper";
 
 export default async function Page({
@@ -52,33 +53,36 @@ export default async function Page({
     ?.value.toString();
 
   return (
-    <div className="p-6">
+    <div className="flex grow flex-col p-6">
       <p className="whitespace-pre-wrap"></p>
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <p className="flex items-center gap-x-1.5 font-medium text-lg">
           <User className="size-5 text-primary" />
           {name}
         </p>
-        <p className="text-primary">{range}</p>
+        <p className="rounded-md border bg-secondary px-2.5 py-0.5 text-primary dark:text-foreground">
+          {range}
+        </p>
       </div>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-4 text-center">
+        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-3 text-center">
           <p className="font-medium">Státusz</p>
           <p className="font-semibold text-3xl">{status}</p>
         </div>
-        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-4 text-center">
+        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-3 text-center">
           <p className="font-medium">Elért pontszám</p>
           <p className="font-semibold text-3xl">{score || "-"}</p>
         </div>
-        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-4 text-center">
+        <div className="flex flex-col items-center justify-center rounded-md border bg-secondary p-3 text-center">
           <p className="font-medium">Szavazati jog / Aktivitás</p>
           <p className="font-semibold text-3xl">{activity}</p>
         </div>
       </div>
-      <p className="my-4 font-semibold text-2xl">Events</p>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-        {score !== undefined ? (
-          data
+      <Separator className="my-6" />
+      <p className="mb-4 font-semibold text-3xl">Events</p>
+      {score !== undefined ? (
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+          {data
             .filter(
               (item) =>
                 item.event !== "Státusz" &&
@@ -94,11 +98,19 @@ export default async function Page({
                 <p className="font-medium">{item.event}</p>
                 <p className="font-semibold text-xl">{item.value.toString()}</p>
               </div>
-            ))
-        ) : (
-          <div className="">No Activity</div>
-        )}
-      </div>
+            ))}
+        </div>
+      ) : (
+        <div className="flex grow flex-col items-center justify-center">
+          <div className="flex size-18 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <CircleOff className="size-10" />
+          </div>
+          <p className="mt-5 font-semibold text-2xl">No Activity</p>
+          <p className="mt-1 w-full max-w-xs text-center text-muted-foreground">
+            It seems you do not have any recorded activity this semester.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
