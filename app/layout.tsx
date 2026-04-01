@@ -1,6 +1,7 @@
 import { Geist_Mono, Inter } from "next/font/google";
 
 import "./globals.css";
+import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,12 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 });
+
+export const metadata: Metadata = {
+  title: "openRÖszTI",
+  description:
+    "A tool to get insights about your RÖszTI activity and points. Check your status, points, and voting rights in a user-friendly interface.",
+};
 
 export default function RootLayout({
   children,
